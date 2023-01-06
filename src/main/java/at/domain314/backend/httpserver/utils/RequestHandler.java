@@ -40,7 +40,7 @@ public class RequestHandler implements Runnable {
                 response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
             }
             printWriter.write(response.get());
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println(Thread.currentThread().getName() + " Error: " + e.getMessage());
         } finally {
             try {

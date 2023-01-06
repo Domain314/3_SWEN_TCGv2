@@ -59,4 +59,12 @@ public class CardController extends Controller {
         return cardRepo.createCards(cards);
     }
 
+    public List<Card> getAllCards(List<String> cardIDs) {
+        try {
+            return cardRepo.getCards(cardIDs);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
 }

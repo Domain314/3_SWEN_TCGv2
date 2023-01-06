@@ -27,7 +27,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println();
     }
 
     private static Router configureRouter() {
@@ -39,9 +39,7 @@ public class Main {
         router.addService("/transactions", new PackageService());
         router.addService("/cards", new CardService());
         router.addService("/deck", new DeckService());
-//        router.addService("/users/kienboec", new UserService());
-//        router.addService("/users/altenhof", new UserService());
-//        router.addService("/sessions", new SessionService());
+        router.addService("/battles", new BattleService());
 
         return router;
     }

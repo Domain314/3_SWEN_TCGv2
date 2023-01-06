@@ -6,9 +6,7 @@ import java.util.List;
 abstract public class Collection {
     List<Card> cards = new ArrayList<>();
 
-    public Collection() {
-        System.out.println("new Collection made");
-    }
+    public Collection() { }
 
     public List<Card> getCards() { return cards; }
 
@@ -20,6 +18,31 @@ abstract public class Collection {
         for (int i = 0; i < cards.size(); i++) {
             this.cards.add(cards.get(i));
         }
+    }
+
+    public List<String> getBestCards(int amount) {
+        if (this.cards == null) return null;
+        if (this.cards.size() < amount) return null;
+
+        List<String> bestCards = new ArrayList<>();
+        for (int a = 0; a < amount; a++) {
+            Card bestCard = this.cards.get(0);
+            for (Card card : this.cards) {
+                if (isCardInList(card.getID(), bestCards)) continue;
+                if (card.getDamage() > bestCard.getDamage()) {
+                    bestCard = card;
+                }
+            }
+            bestCards.add(bestCard.getID());
+        }
+        return bestCards;
+    }
+
+    private boolean isCardInList(String cardID, List<String> cards) {
+        for (String card : cards ) {
+            if (card.equals(cardID)) return true;
+        }
+        return false;
     }
 
     public void deleteCard(Card card) {

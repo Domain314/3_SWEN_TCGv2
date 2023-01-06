@@ -14,6 +14,7 @@
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/BattleController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/CardController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/DeckController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/PackageController.java" afterDir="false" />
@@ -34,11 +35,13 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/httpserver/utils/RequestHandler.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/httpserver/utils/Router.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/init/InitDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/BattleRepo.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/CardRepo.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/DeckRepo.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/PackageRepo.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/SessionRepo.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/UserRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/services/BattleService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/services/CardService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/services/DeckService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/services/PackageService.java" afterDir="false" />
@@ -96,15 +99,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/domain314/IdeaProjects/TCGv2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/home/domain314/IdeaProjects/TCGv2"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="at.domain314.Main" />
@@ -172,24 +175,39 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/CardRepo.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/models/cards/Card.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/DeckRepo.java</url>
-          <line>11</line>
+          <line>12</line>
           <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/BattleController.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/DeckController.java</url>
           <line>22</line>
-          <option name="timeStamp" value="26" />
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/DeckController.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/services/DeckService.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/CardRepo.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/BattleController.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

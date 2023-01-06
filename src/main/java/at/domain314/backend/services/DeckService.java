@@ -11,8 +11,14 @@ import at.domain314.backend.httpserver.server.Service;
 import at.domain314.backend.repositories.CardRepo;
 import at.domain314.backend.repositories.DeckRepo;
 import at.domain314.backend.repositories.UserRepo;
+import at.domain314.models.cards.Card;
+import at.domain314.models.cards.Collection;
+import at.domain314.models.cards.Deck;
 import at.domain314.models.users.Player;
 import at.domain314.utils.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeckService implements Service {
     private final DeckController deckController;
@@ -27,8 +33,6 @@ public class DeckService implements Service {
 
     @Override
     public Response handleRequest(Request request) {
-        System.out.println(request.getParams());
-
         Player player = userController.authPlayer(request);
         if (player == null) { return new Response(
                 HttpStatus.BAD_REQUEST,
@@ -38,11 +42,18 @@ public class DeckService implements Service {
 
         switch (request.getMethod()) {
             case GET: {
-                if (request.getParams().contains("format")) { return this.cardController.getCardsPlainFormat(player.getDeckIDs()); }
-                else { return this.cardController.getCards(player.getDeckIDs()); }
+                if (request.getParams() != null) {
+                    if (request.getParams().contains("format")) return this.cardController.getCardsPlainFormat(player.getDeckIDs());
+                }
+                return this.cardController.getCards(player.getDeckIDs());
             }
             case PUT: {
-                return this.deckController.updateDeck(request, player.getID());
+                if (request.getBody() == null || request.getBody() == "") {
+                    return this.deckController.updateDeck(request, player, getBestCards(player));
+                }
+                else {
+                    return this.deckController.updateDeck(request, player);
+                }
             }
             default: return new Response(
                     HttpStatus.BAD_REQUEST,
@@ -50,5 +61,12 @@ public class DeckService implements Service {
                     Constants.RESPONSE_BAD_REQUEST
             );
         }
+    }
+
+    private String[] getBestCards(Player player) {
+        Deck deck = new Deck(cardController.getAllCards(player.getStackIDs()));
+        List<String> bestCardIDs = deck.getBestCards(Constants.CARDS_PER_DECK);
+        String[] bCIDs = bestCardIDs.toArray(new String[Constants.CARDS_PER_DECK]);
+        return bCIDs;
     }
 }

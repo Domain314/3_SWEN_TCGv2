@@ -71,6 +71,8 @@ public class Player {
     public void setElo(int elo) { this.elo = elo; }
     public void setGamesCounter(int gamesCounter) { this.gamesCounter = gamesCounter; }
     public void setWinCounter(int winCounter) { this.winCounter = winCounter; }
+    public void setDeck(Deck deck) { this.deck = deck; }
+    public void setStack(Collection stack) { this.stack = stack; }
 
     //    return false, if not enough credits, to subtract.
     public boolean changeCredits(int amount) {

@@ -22,8 +22,6 @@ public class PackageRepo {
 
     public List<Card> createPackage(Card[] cards) {
         List<Card> cardsList;
-
-        System.out.println("create Package");
         if (cards == null) {
             cardsList = generatePackage();
         } else {
@@ -40,9 +38,6 @@ public class PackageRepo {
                 cardsList.add(card);
             }
         }
-        System.out.println(cardsList);
-        System.out.println("cardsList done");
-
         return cardsList;
     }
 

@@ -19,7 +19,6 @@ public class SessionController extends Controller {
 
     public Response loginUser(Request request) {
         try {
-            System.out.println(request.getBody());
             User user = this.getObjectMapper().readValue(request.getBody(), User.class);
 
             switch (this.sessionRepo.login(user)) {

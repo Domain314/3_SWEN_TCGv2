@@ -19,7 +19,6 @@ public class UserController extends Controller {
 
     public Response createUser(Request request) {
         try {
-            System.out.println(request.getBody());
             User user = this.getObjectMapper().readValue(request.getBody(), User.class);
             String userDataJSON = this.getObjectMapper().writeValueAsString(user);
 
@@ -76,7 +75,6 @@ public class UserController extends Controller {
     public Response updatePlayer(Request request) {
         try {
             String authorizationToken = request.getHeaderMap().getHeader("Authorization");
-            System.out.println(authorizationToken);
             User user = authUser(request);
             Player newData = this.getObjectMapper().readValue(request.getBody(), Player.class);
             mergePlayer(user, newData);

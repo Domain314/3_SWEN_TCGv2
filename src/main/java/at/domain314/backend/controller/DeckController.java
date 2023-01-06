@@ -8,6 +8,7 @@ import at.domain314.backend.httpserver.server.Response;
 import at.domain314.backend.repositories.DeckRepo;
 import at.domain314.models.cards.Card;
 import at.domain314.models.users.Player;
+import at.domain314.utils.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
@@ -17,18 +18,14 @@ public class DeckController extends Controller {
 
     public DeckController(DeckRepo deckRepo) { this.deckRepo = deckRepo; }
 
-    public Response updateDeck(Request request, int id) {
+    public Response updateDeck(Request request, Player player) {
         try {
-
-            System.out.println(request.getBody());
-            if (request.getBody() == null && request.getBody() == "") {
-                return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "No Cards to add.\n");
-            }
             String[] cards = this.getObjectMapper().readValue(request.getBody(), String[].class);
+
             if (cards.length != 4) {
                 return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Not 4 Cards.\n");
             }
-            if (!this.deckRepo.update(cards, id)) {
+            if (!this.deckRepo.update(cards, player.getID())) {
                 return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Error updating Deck.\n");
             };
 
@@ -39,4 +36,20 @@ public class DeckController extends Controller {
             return internalError(e);
         }
     }
+
+    public Response updateDeck(Request request, Player player, String[] cards) {
+        try {
+            if (cards.length != Constants.CARDS_PER_DECK) {
+                return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Not 4 Cards.\n");
+            }
+            if (!this.deckRepo.update(cards, player.getID())) {
+                return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Error updating Deck.\n");
+            };
+
+            return new Response(HttpStatus.OK, ContentType.JSON, "Updated Deck.\n");
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
 }

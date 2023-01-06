@@ -3,7 +3,6 @@ package at.domain314.game;
 import at.domain314.models.cards.Card;
 import at.domain314.models.cards.Element;
 import at.domain314.models.cards.Type;
-import at.domain314.models.overseer.Overseer;
 import at.domain314.models.users.Player;
 import at.domain314.utils.Constants;
 
@@ -36,13 +35,13 @@ public class Game {
 //    If one player has lost the game and finalize it.
 //    Else if limit of rounds reached, end the game and finalize it.
 //    Else continue to roundPhase1
-    public void makeRound() {
+    public String makeRound() {
         int loser = checkLoser();
         if (loser != -1) {
-            System.out.println(String.format("Winner: %s - Rounds: %d", Overseer.getUser(players.get((loser+1)%2).getID()).getUsername(), round ));
+            System.out.println(String.format("Winner: %s - Rounds: %d", players.get(loser+1%2).getName(), round ));
             isActive = false;
             finalizeGame(loser);
-            return;
+            return String.format("Winner: %s - Rounds: %d", players.get(loser+1%2).getName(), round );
         }
         if (!addRound()) {
             System.out.println("Limit of rounds reached! \nDraw.");
@@ -53,10 +52,11 @@ public class Game {
             );
             isActive = false;
             finalizeGame(-1);
-            return;
+            return String.format("Draw! - Rounds: %d", round );
         }
         System.out.println(String.format("Round %d", round));
         roundPhase1();
+        return "-";
     }
 
 //    Each Player draws a random card from Deck.

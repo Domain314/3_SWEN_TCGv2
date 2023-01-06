@@ -69,13 +69,14 @@ public class Constants {
             List<String> newList = new ArrayList<>();
             Object[] temp = (Object[]) arr.getArray();
             for (Object t : temp) {
-                System.out.println(t);
                 newList.add(t.toString());
             }
             return newList;
 
         } catch (Exception e) { throw new RuntimeException(e); }
     }
+
+
 
     public static final float[][] ELEMENT_MATRIX = {
             {1.0f, 0.5f, 2.0f, 0.66f, 1.25f},

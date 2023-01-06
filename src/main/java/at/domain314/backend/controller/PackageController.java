@@ -24,7 +24,6 @@ public class PackageController extends Controller {
     public Response createPackage(Request request) {
         try {
             Card[] cards = null;
-            System.out.println(request);
             if (request.getBody() != null && request.getBody() != "") {
                 cards = this.getObjectMapper().readValue(request.getBody(), Card[].class);
             }

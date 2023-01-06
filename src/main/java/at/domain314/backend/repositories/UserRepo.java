@@ -15,7 +15,6 @@ public class UserRepo {
 
     public int create(User user) {
         user.setUserID(Constants.RANDOM.nextInt(10000000, 99999999));
-        System.out.println(user.getUsername());
         if (playerExists(user)) {
             return 0;
         }
@@ -60,7 +59,6 @@ public class UserRepo {
             statement.setInt(8, user.getUserID());
 
             statement.execute();
-            System.out.println(statement.getResultSet());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
