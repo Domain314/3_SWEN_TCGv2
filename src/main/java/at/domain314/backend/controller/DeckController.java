@@ -18,26 +18,20 @@ public class DeckController extends Controller {
 
     public DeckController(DeckRepo deckRepo) { this.deckRepo = deckRepo; }
 
-    public Response updateDeck(Request request, Player player) {
+    public Response updateDeckWithRequest(Request request, Player player) {
         try {
             String[] cards = this.getObjectMapper().readValue(request.getBody(), String[].class);
 
-            if (cards.length != 4) {
-                return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Not 4 Cards.\n");
-            }
-            if (!this.deckRepo.update(cards, player.getID())) {
-                return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Error updating Deck.\n");
-            };
+            if (!checkForCardExistence(player, cards)) { return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Wrong cards.\n"); }
 
-            return new Response(HttpStatus.OK, ContentType.JSON, "Updated Deck.\n");
+            return updateDeckWithCards(cards, player);
 
-
-        } catch (JsonProcessingException e) {
-            return internalError(e);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
-    public Response updateDeck(Request request, Player player, String[] cards) {
+    public Response updateDeckWithCards(String[] cards, Player player) {
         try {
             if (cards.length != Constants.CARDS_PER_DECK) {
                 return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Not 4 Cards.\n");
@@ -50,6 +44,13 @@ public class DeckController extends Controller {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    private boolean checkForCardExistence(Player player, String[] cards) {
+        for (String cardID : cards) {
+            if (!player.getStackIDs().contains(cardID)) return false;
+        }
+        return true;
     }
 
 }

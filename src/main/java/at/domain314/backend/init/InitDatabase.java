@@ -45,7 +45,7 @@ public class InitDatabase {
             CREATE TABLE IF NOT EXISTS score (
             	user_id INTEGER PRIMARY KEY,
             	name VARCHAR (50),
-            	elo INTEGER
+            	elo INTEGER DEFAULT 1500
             );
             """;
 
@@ -54,7 +54,8 @@ public class InitDatabase {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(initDBSQL);
             statement.execute();
         } catch(SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Database already created");
+            return;
         }
     }
     public static void createTables() {

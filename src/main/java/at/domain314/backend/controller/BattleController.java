@@ -27,21 +27,18 @@ public class BattleController extends Controller {
         if (player.getDeckIDs().size() != Constants.CARDS_PER_DECK) {
             return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Not enough cards in deck, for a battle.\n");
         }
-
         battleQueue.add(player);
         System.out.println(battleQueue.size());
         if (battleQueue.size() > 1) {
-            startBattle(lastOutcomes.size()-1);
-            return new Response(HttpStatus.OK, ContentType.JSON, lastOutcomes.get(lastOutcomes.size()-1));
+            return new Response(HttpStatus.OK, ContentType.JSON, startBattle(lastOutcomes.size()-1));
         } else {
-            lastOutcomes.add("-");
-            return runQueue(player, lastOutcomes.size()-1);
+            return new Response(HttpStatus.OK, ContentType.JSON, "Queued up for battle.");
+//            lastOutcomes.add("-");
+//            return runQueue(player, lastOutcomes.size()-1);
         }
     }
 
-    private void preparePlayer(Player player) {
-        
-    }
+
 
     private Response runQueue(Player player, int index) {
         while (lastOutcomes.get(index).equals("-")) {
@@ -50,21 +47,22 @@ public class BattleController extends Controller {
         return new Response(HttpStatus.OK, ContentType.JSON, lastOutcomes.get(index));
     }
 
-    private void startBattle(int index) {
+    private String startBattle(int index) {
         List<Player> players = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             players.add(battleQueue.remove(0));
         }
         Game game = new Game(players);
-        runGame(game, index);
-
+        String result = runGame(game, index);
+        battleRepo.updateAfterBattle(players);
+        return result;
     }
 
-    private void runGame(Game newGame, int index) {
+    private String runGame(Game newGame, int index) {
         String outcome = "-";
         while(newGame.getIsActive()) {
             outcome = newGame.makeRound();
         }
-        lastOutcomes.set(index, outcome);
+        return outcome;
     }
 }

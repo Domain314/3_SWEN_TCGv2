@@ -9,6 +9,7 @@ import at.domain314.backend.repositories.CardRepo;
 import at.domain314.backend.repositories.PackageRepo;
 import at.domain314.models.cards.Card;
 import at.domain314.models.cards.CardPackage;
+import at.domain314.models.users.Player;
 
 import java.util.List;
 
@@ -44,11 +45,11 @@ public class PackageController extends Controller {
         }
     }
 
-    public Response acquirePackage(Request request, int userID) {
+    public Response acquirePackage(Request request, Player player) {
         try {
             CardPackage cardPackage = this.packageRepo.getOneAvailablePackage();
 
-            switch(this.packageRepo.transferPackage(cardPackage, userID)) {
+            switch(this.packageRepo.transferPackage(cardPackage, player)) {
                 case 0:
                     System.out.println("Error acquiring Package!");
                     return new Response(HttpStatus.NO_CONTENT, ContentType.JSON, "Error acquiring Package!\n");

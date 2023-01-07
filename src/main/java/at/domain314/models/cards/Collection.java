@@ -26,7 +26,11 @@ abstract public class Collection {
 
         List<String> bestCards = new ArrayList<>();
         for (int a = 0; a < amount; a++) {
-            Card bestCard = this.cards.get(0);
+            int x = 0;
+            Card bestCard = this.cards.get(x);
+            while (isCardInList(bestCard.getID(), bestCards)) {
+                bestCard = this.cards.get(++x);
+            }
             for (Card card : this.cards) {
                 if (isCardInList(card.getID(), bestCards)) continue;
                 if (card.getDamage() > bestCard.getDamage()) {
@@ -38,9 +42,16 @@ abstract public class Collection {
         return bestCards;
     }
 
-    private boolean isCardInList(String cardID, List<String> cards) {
+    public boolean isCardInList(String cardID, List<String> cards) {
         for (String card : cards ) {
             if (card.equals(cardID)) return true;
+        }
+        return false;
+    }
+
+    public boolean isCardInCollection(String cardID) {
+        for (Card card : this.cards ) {
+            if (card.getID().equals(cardID)) return true;
         }
         return false;
     }

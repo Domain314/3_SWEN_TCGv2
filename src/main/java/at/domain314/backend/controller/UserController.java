@@ -1,6 +1,7 @@
 package at.domain314.backend.controller;
 
 import at.domain314.models.users.Player;
+import at.domain314.utils.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import at.domain314.backend.httpserver.http.ContentType;
 import at.domain314.backend.httpserver.http.HttpStatus;
@@ -23,33 +24,32 @@ public class UserController extends Controller {
             String userDataJSON = this.getObjectMapper().writeValueAsString(user);
 
             switch (this.userRepo.create(user)) {
-                case 0:
-                    System.out.println("createUser: user already exists");
-                    return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "User already exists!");
-                case 1:
-                    System.out.println("createUser: new user created");
-                    return new Response(HttpStatus.CREATED, ContentType.JSON, "New User created -- " + userDataJSON);
+                case 0: {
+                    return new Response("User already exists!");
+                }
+                case 1:{
+                    return new Response("New User created:\n" + userDataJSON, true);
+                }
+                default: {
+                    return new Response();
+                }
             }
-            return new Response(HttpStatus.NOT_FOUND, ContentType.JSON, "No DB Connection -- " + userDataJSON);
-
-        } catch (JsonProcessingException e) {
-            return internalError(e);
+        } catch (Exception e) {
+            return new Response();
         }
     }
 
     public Response getUser(Request request) {
         try {
-            Player playerData = authUser(request);
-
-            if (playerData == null) {
-                return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Token incorrect");
-            } else {
-                String playerDataJSON = this.getObjectMapper().writeValueAsString(playerData);
-                return new Response(HttpStatus.OK, ContentType.JSON, "Token accepted -- " + playerDataJSON);
+            Player player = authPlayer(request);
+            if (player == null) { return new Response(Constants.RESPONSE_BAD_AUTH); }
+            if (player.getName().equals(request.getPathParts().get(1))) {
+                String playerDataJSON = this.getObjectMapper().writeValueAsString(player);
+                return new Response("Token accepted:\n" + playerDataJSON, true);
             }
-
-        } catch (JsonProcessingException e) {
-            return internalError(e);
+            return new Response(Constants.RESPONSE_BAD_AUTH);
+        } catch (Exception e) {
+            return new Response();
         }
     }
 
@@ -74,15 +74,19 @@ public class UserController extends Controller {
 
     public Response updatePlayer(Request request) {
         try {
-            String authorizationToken = request.getHeaderMap().getHeader("Authorization");
             User user = authUser(request);
             Player newData = this.getObjectMapper().readValue(request.getBody(), Player.class);
+            System.out.println(user.getUsername());
+            System.out.println(request.getPathParts().get(1));
+            if (!user.getUsername().equals(request.getPathParts().get(1))) {
+                return new Response(Constants.RESPONSE_BAD_USER);
+            }
             mergePlayer(user, newData);
             Player playerData = this.userRepo.update(user);
 
             String userDataJSON = this.getObjectMapper().writeValueAsString(playerData);
 
-            return new Response(HttpStatus.OK, ContentType.JSON, userDataJSON);
+            return new Response(userDataJSON, true);
 
 
         } catch (JsonProcessingException e) {

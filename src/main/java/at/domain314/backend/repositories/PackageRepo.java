@@ -76,20 +76,21 @@ public class PackageRepo {
         return null;
     }
 
-    public int transferPackage(CardPackage cardPackage, int userID) {
+    public int transferPackage(CardPackage cardPackage, Player player) {
         if (cardPackage.getCardIDs().size() != 5) { return 0; }
 
         String sql = """
                 DELETE FROM packages WHERE package_id = ?; 
                 UPDATE players
-                SET stack = array_cat(stack, ?)
+                SET stack = array_cat(stack, ?), credits = ?
                 WHERE user_id = ?;
                 """;
         try {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
             statement.setInt(1, cardPackage.getID());
             statement.setArray(2, DataBase.getConnection().createArrayOf("VARCHAR", cardPackage.getCardIDs().toArray()));
-            statement.setInt(3, userID);
+            statement.setInt(3, player.getCredits()-5);
+            statement.setInt(4, player.getID());
 
             statement.execute();
         } catch (SQLException e) {

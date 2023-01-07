@@ -13,10 +13,6 @@ import static at.domain314.backend.init.InitDatabase.createTables;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-//        String url = "jdbc:postgresql://localhost:5432/tcg-db";
-//        String username = "postgres";
-//        String password = "9193110456";
-//        Connection conn = DriverManager.getConnection(url, username, password);
 
 //        createDatabase();
         createTables();
@@ -40,6 +36,8 @@ public class Main {
         router.addService("/cards", new CardService());
         router.addService("/deck", new DeckService());
         router.addService("/battles", new BattleService());
+        router.addService("/stats", new BattleService());
+        router.addService("/score", new ScoreService());
 
         return router;
     }

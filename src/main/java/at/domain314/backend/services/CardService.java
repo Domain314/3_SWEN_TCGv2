@@ -2,8 +2,6 @@ package at.domain314.backend.services;
 
 import at.domain314.backend.controller.CardController;
 import at.domain314.backend.controller.UserController;
-import at.domain314.backend.httpserver.http.ContentType;
-import at.domain314.backend.httpserver.http.HttpStatus;
 import at.domain314.backend.httpserver.server.Request;
 import at.domain314.backend.httpserver.server.Response;
 import at.domain314.backend.httpserver.server.Service;
@@ -25,20 +23,13 @@ public class CardService implements Service {
     @Override
     public Response handleRequest(Request request) {
         Player player = userController.authPlayer(request);
-        if (player == null) { return new Response(
-                HttpStatus.BAD_REQUEST,
-                ContentType.JSON,
-                Constants.RESPONSE_BAD_REQUEST
-        ); }
+        if (player == null) { return new Response(Constants.RESPONSE_BAD_AUTH); }
+
         switch (request.getMethod()) {
             case GET: {
                 return this.cardController.getCards(player.getStackIDs());
             }
-            default: return new Response(
-                    HttpStatus.BAD_REQUEST,
-                    ContentType.JSON,
-                    Constants.RESPONSE_BAD_REQUEST
-            );
+            default: return new Response();
         }
     }
 }

@@ -120,7 +120,7 @@ public class Game {
             players.get(0).getDeck().addCard(drawnCards.get(0));
             players.get(1).getDeck().addCard(drawnCards.get(1));
         } else {
-            players.get(winnerIndex).getStack().addCard(drawnCards);
+            players.get(winnerIndex).getDeck().addCard(drawnCards);
             System.out.println(String.format("Player %d won the round.", winnerIndex));
         }
         System.out.println("--------");
@@ -128,6 +128,7 @@ public class Game {
 
 //    Check if one of the player has no cards left. return index of loser or -1 if everyone has at least one card left.
     private int checkLoser() {
+        System.out.println(players);
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getDeck().getCards().size() <= 0) {
                 return i;
@@ -147,9 +148,21 @@ public class Game {
         int eloChange = loserIndex == -1 ? 0 : Constants.EloChange(players.get((loserIndex+1)%2).getElo(), players.get(loserIndex).getElo());
 
         switch (loserIndex) {
-            case -1: players.get(0).endGame(eloChange); players.get(1).endGame(eloChange); break;
-            case 0: players.get(0).endGame(-eloChange); players.get(1).endGame(eloChange, true); break;
-            case 1: players.get(0).endGame(eloChange, true); players.get(1).endGame(-eloChange); break;
+            case -1: {
+                players.get(0).endGame(eloChange, players.get(1).getDeck());
+                players.get(1).endGame(eloChange, players.get(0).getDeck());
+                break;
+            }
+            case 0: {
+                players.get(0).endGame(eloChange*-1, players.get(1).getDeck());
+                players.get(1).endGame(eloChange, players.get(0).getDeck(), true);
+                break;
+            }
+            case 1: {
+                players.get(0).endGame(eloChange, players.get(1).getDeck(), true);
+                players.get(1).endGame(eloChange*-1, players.get(0).getDeck());
+                break;
+            }
         }
 
 //        System.out.println(String.format("%s rating: %d\n%s rating: %d", players.get(0).getUserName(), players.get(0).getElo(), players.get(1).getUserName(), players.get(1).getElo()));

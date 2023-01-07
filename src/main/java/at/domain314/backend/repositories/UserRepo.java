@@ -21,7 +21,8 @@ public class UserRepo {
         user.setToken(Constants.createToken(user.getUsername()));
         String sql = """
                 INSERT INTO users (user_id,username,password,last_token,created_on) VALUES (?,?,?,?,?);
-                INSERT INTO players (user_id) VALUES (?);
+                INSERT INTO players (user_id, name) VALUES (?,?);
+                INSERT INTO score (user_id,name) VALUES (?,?);
                 """;
         try {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
@@ -30,7 +31,12 @@ public class UserRepo {
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getToken());
             statement.setTimestamp(5, Timestamp.from(Instant.now()));
+
             statement.setInt(6, user.getUserID());
+            statement.setString(7, user.getUsername());
+
+            statement.setInt(8, user.getUserID());
+            statement.setString(9, user.getUsername());
 
             statement.execute();
 
@@ -45,8 +51,10 @@ public class UserRepo {
     public Player update(User user) {
         user.setUserID(getIdForToken(user.getUsername(), user.getToken()));
         String sql = """
-                UPDATE players SET name = ?, bio = ?, image = ?, credits = ?, games_counter = ?, win_counter = ?, elo = ? where user_id=?
+                UPDATE players SET name = ?, bio = ?, image = ?, credits = ?, games_counter = ?, win_counter = ?, elo = ? WHERE user_id=?;
+                UPDATE score SET elo = ?, name = ? WHERE user_id = ?;
                 """;
+        System.out.println(user.getID());
         try {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
             statement.setString(1, user.getName());
@@ -56,7 +64,11 @@ public class UserRepo {
             statement.setInt(5, user.getGamesCounter());
             statement.setInt(6, user.getWinCounter());
             statement.setInt(7, user.getElo());
-            statement.setInt(8, user.getUserID());
+            statement.setInt(8, user.getID());
+
+            statement.setInt(9, user.getElo());
+            statement.setString(10, user.getName());
+            statement.setInt(11, user.getID());
 
             statement.execute();
         } catch (SQLException e) {
@@ -73,7 +85,7 @@ public class UserRepo {
 
 
         String sql = """
-                select * from players where user_id=?
+                SELECT * FROM players WHERE user_id=?
                 """;
         try {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
@@ -107,7 +119,7 @@ public class UserRepo {
         if (user.getUserID() == 0) { return null; }
 
         String sql = """
-                select * from players where user_id=?
+                SELECT * FROM players WHERE user_id=?
                 """;
         try {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
@@ -126,12 +138,21 @@ public class UserRepo {
                         results.getInt(9),
                         results.getInt(10)
                 );
-                return user;
+
             }
+            sql = """
+                SELECT username FROM users WHERE user_id=?
+                """;
+            statement = DataBase.getConnection().prepareStatement(sql);
+            statement.setInt(1, user.getUserID());
+            results = statement.executeQuery();
+            while (results.next()) {
+                user.setUsername(results.getString(1));
+            }
+            return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     boolean playerExists(User user) {

@@ -20,7 +20,11 @@ public class Constants {
     private static final int TOKEN_SEGMENT_AMOUNT = 4;
     private static final int TOKEN_SEGMENT_LENGTH = 6;
 
-    public static final String RESPONSE_BAD_REQUEST = "{ \"message\" : \"No Method detected.\" }";
+    public static final String RESPONSE_BAD_REQUEST = "No Method detected.\n";
+    public static final String RESPONSE_BAD_AUTH = "Authentication failed.\n";
+    public static final String RESPONSE_BAD_CREDITS = "Not enough Credits.\n";
+    public static final String RESPONSE_BAD_CARDS = "Not enough Cards in Deck.\n";
+    public static final String RESPONSE_BAD_USER = "Wrong user.\n";
 
     public static final Random RANDOM = new Random();
 

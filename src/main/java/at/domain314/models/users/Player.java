@@ -1,5 +1,6 @@
 package at.domain314.models.users;
 
+import at.domain314.models.cards.Card;
 import at.domain314.models.cards.Collection;
 import at.domain314.models.cards.Deck;
 import at.domain314.utils.Constants;
@@ -84,16 +85,45 @@ public class Player {
     public void changeElo(int eloAmount) { elo += eloAmount; }
 
     //    End game after losing (change elo and increment games counter)
-    public void endGame(int eloAmount) {
+    public void endGame(int eloAmount, Deck enemyDeck) {
         changeElo(eloAmount);
         gamesCounter++;
+        prepareCardIDs(enemyDeck);
     }
     //    End game after winning (change elo, increment games and win counter)
-    public void endGame(int eloAmount, boolean win) {
+    public void endGame(int eloAmount, Deck enemyDeck, boolean win) {
         changeElo(eloAmount);
         gamesCounter++;
         if (win) {
             winCounter++;
         }
+        prepareCardIDs();
+    }
+
+    public void prepareCardIDs() {
+        List<String> newStack = new ArrayList<>();
+        for (String cardID : this.stackIDs) {
+            newStack.add(cardID);
+        }
+        for (Card card : this.deck.getCards()) {
+            if (this.deck.isCardInList(card.getID(), newStack)) { continue; }
+            newStack.add(card.getID());
+        }
+        this.stackIDs = newStack;
+        this.deckIDs = new ArrayList<>();
+    }
+
+    public void prepareCardIDs(Deck enemyDeck) {
+        List<String> newStack = new ArrayList<>();
+        for (String cardID : this.stackIDs) {
+            if (enemyDeck.isCardInCollection(cardID)) { continue; }
+            newStack.add(cardID);
+        }
+        for (Card card : this.deck.getCards()) {
+            if (this.deck.isCardInList(card.getID(), newStack)) { continue; }
+            newStack.add(card.getID());
+        }
+        this.stackIDs = newStack;
+        this.deckIDs = new ArrayList<>();
     }
 }

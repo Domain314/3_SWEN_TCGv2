@@ -2,6 +2,7 @@ package at.domain314.backend.httpserver.server;
 
 import at.domain314.backend.httpserver.http.ContentType;
 import at.domain314.backend.httpserver.http.HttpStatus;
+import at.domain314.utils.Constants;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -18,6 +19,27 @@ public class Response {
         this.message = httpStatus.message;
         this.contentType = contentType.type;
         this.content = content;
+    }
+
+    public Response(String content, boolean isOk) {
+        this.status = HttpStatus.OK.code;
+        this.message = HttpStatus.OK.message;
+        this.contentType = ContentType.JSON.type;
+        this.content = content;
+    }
+
+    public Response(String content) {
+        this.status = HttpStatus.BAD_REQUEST.code;
+        this.message = HttpStatus.BAD_REQUEST.message;
+        this.contentType = ContentType.JSON.type;
+        this.content = content;
+    }
+
+    public Response() {
+        this.status = HttpStatus.BAD_REQUEST.code;
+        this.message = HttpStatus.BAD_REQUEST.message;
+        this.contentType = ContentType.JSON.type;
+        this.content = Constants.RESPONSE_BAD_REQUEST;
     }
 
     public String get() {
