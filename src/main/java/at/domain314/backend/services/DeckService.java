@@ -33,8 +33,8 @@ public class DeckService implements Service {
 
         switch (request.getMethod()) {
             case GET: {
-                if (player.getDeckIDs() == null) return new Response(Constants.RESPONSE_BAD_CARDS);
-                if (player.getDeckIDs().size() == 0) return new Response(Constants.RESPONSE_BAD_CARDS);
+                if (player.getDeckIDs() == null) return new Response(Constants.RESPONSE_BAD_CARDS_DECK);
+                if (player.getDeckIDs().size() == 0) return new Response(Constants.RESPONSE_BAD_CARDS_DECK);
                 if (request.getParams() != null) {
                     if (request.getParams().contains("format")) {
                         return this.cardController.getCardsPlainFormat(player.getDeckIDs());
@@ -43,21 +43,34 @@ public class DeckService implements Service {
                 return this.cardController.getCards(player.getDeckIDs());
             }
             case PUT: {
+                if (player.getStackIDs() == null) return new Response(Constants.RESPONSE_BAD_CARDS_STACK);
+
                 if (request.getBody() == null || request.getBody() == "") {
-                    return this.deckController.updateDeckWithCards(getBestCards(player), player);
+                    if (request.getParams() != null) {
+                        if (request.getParams().contains("random")) {
+                            return this.deckController.updateDeckWithCards(getRandomCards(player), player);
+                        }
+                    } else {
+                        return this.deckController.updateDeckWithCards(getBestCards(player), player);
+                    }
                 }
                 else {
                     return this.deckController.updateDeckWithRequest(request, player);
                 }
             }
-            default: return new Response();
+            default: return new Response(true);
         }
     }
 
     private String[] getBestCards(Player player) {
-        Deck deck = new Deck(cardController.getAllCards(player.getStackIDs()));
-        List<String> bestCardIDs = deck.getBestCards(Constants.CARDS_PER_DECK);
-        String[] bCIDs = bestCardIDs.toArray(new String[Constants.CARDS_PER_DECK]);
-        return bCIDs;
+        Deck allCards = new Deck(cardController.getAllCards(player.getStackIDs()));
+        List<String> bestCardIDs = allCards.getBestCards(Constants.CARDS_PER_DECK);
+        return bestCardIDs.toArray(new String[Constants.CARDS_PER_DECK]);
+    }
+
+    private String[] getRandomCards(Player player) {
+        Deck allCards = new Deck(cardController.getAllCards(player.getStackIDs()));
+        List<String> randomCardIDs = allCards.getRandomCards(Constants.CARDS_PER_DECK);
+        return randomCardIDs.toArray(new String[Constants.CARDS_PER_DECK]);
     }
 }

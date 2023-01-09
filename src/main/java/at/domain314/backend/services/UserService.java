@@ -18,16 +18,18 @@ public class UserService implements Service {
     public Response handleRequest(Request request) {
 
         switch (request.getMethod()) {
-            case POST: {
+            case POST -> {
                 return this.userController.createUser(request);
             }
-            case GET: {
+            case GET -> {
                 return this.userController.getUser(request);
             }
-            case PUT: {
+            case PUT -> {
                 return this.userController.updatePlayer(request);
             }
-            default: return new Response();
+            default -> {
+                return new Response(true);
+            }
         }
     }
 }

@@ -23,14 +23,14 @@ public class SessionController extends Controller {
 
             switch (this.sessionRepo.login(user)) {
                 case 0:
-                    System.out.println("login failed: user does not exist");
-                    return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "User does not exist!\n");
+                    Constants.print("login failed: user does not exist");
+                    return new Response("User does not exist!\n");
                 case 1:
-                    System.out.println("login failed: incorrect password");
-                    return new Response(HttpStatus.CREATED, ContentType.JSON, "Incorrect Password\n");
+                    Constants.print("login failed: incorrect password");
+                    return new Response("Incorrect Password\n");
                 case 2:
-                    System.out.println("login successful");
-                    return new Response(HttpStatus.CREATED, ContentType.JSON, "Successfully logged in!\n");
+                    Constants.print("login successful");
+                    return new Response("Successfully logged in!\n", true);
             }
             return new Response(HttpStatus.NOT_FOUND, ContentType.JSON, "No DB Connection\n");
 

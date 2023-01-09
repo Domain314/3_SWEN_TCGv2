@@ -20,7 +20,7 @@ public class SessionService implements Service {
             case POST: {
                 return this.sessionController.loginUser(request);
             }
-            default: return new Response();
+            default: return new Response(true);
         }
     }
 }

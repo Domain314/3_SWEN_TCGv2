@@ -42,6 +42,7 @@ public class RequestHandler implements Runnable {
             printWriter.write(response.get());
         } catch (Exception e) {
             System.err.println(Thread.currentThread().getName() + " Error: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             try {
                 if (printWriter != null) {

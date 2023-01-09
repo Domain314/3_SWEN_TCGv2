@@ -20,11 +20,15 @@ public class Constants {
     private static final int TOKEN_SEGMENT_AMOUNT = 4;
     private static final int TOKEN_SEGMENT_LENGTH = 6;
 
+    public static final String RESPONSE_BAD_ERROR = "An Error occurred.\n";
     public static final String RESPONSE_BAD_REQUEST = "No Method detected.\n";
     public static final String RESPONSE_BAD_AUTH = "Authentication failed.\n";
     public static final String RESPONSE_BAD_CREDITS = "Not enough Credits.\n";
-    public static final String RESPONSE_BAD_CARDS = "Not enough Cards in Deck.\n";
+    public static final String RESPONSE_BAD_CARDS_DECK = "Not enough Cards in Deck.\n";
+    public static final String RESPONSE_BAD_CARDS_STACK = "Not enough Cards in Stack.\n";
     public static final String RESPONSE_BAD_USER = "Wrong user.\n";
+    public static final String RESPONSE_BAD_ACQUIRE = "Error acquiring Package!\n";
+    public static final String RESPONSE_BAD_PACKAGE = "Error creating Package!\n";
 
     public static final Random RANDOM = new Random();
 
@@ -97,5 +101,9 @@ public class Constants {
     //    calculate win-probability for elo-calculation
     private static float probability(float rating1, float rating2) {
         return 1.0f / (1 + (float) (Math.pow(10, (rating1 - rating2) / 400)));
+    }
+
+    public static void print(String content) {
+        System.out.println(content);
     }
 }

@@ -23,13 +23,13 @@ public class SessionRepo {
             statement.setString(2, user.getUsername());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error");
+            return 0;
         }
         return 2;
     }
 
     private boolean userPassword(User user) {
-        boolean pwIsCorrect = false;
         String sql = """
                 SELECT count(*) FROM users WHERE username=? AND password=?
                 """;
@@ -40,12 +40,12 @@ public class SessionRepo {
             ResultSet results = statement.executeQuery();
             while (results.next()) {
                 if (results.getInt(1) > 0) {
-                    pwIsCorrect = true;
+                    return true;
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return pwIsCorrect;
+        return false;
     }
 }

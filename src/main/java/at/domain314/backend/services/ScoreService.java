@@ -18,7 +18,7 @@ public class ScoreService implements Service {
             case GET: {
                 return this.scoreController.getScore();
             }
-            default: return new Response();
+            default: return new Response(true);
         }
     }
 

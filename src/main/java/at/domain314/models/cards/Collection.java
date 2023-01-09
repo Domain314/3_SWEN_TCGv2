@@ -1,5 +1,7 @@
 package at.domain314.models.cards;
 
+import at.domain314.utils.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,23 @@ abstract public class Collection {
             bestCards.add(bestCard.getID());
         }
         return bestCards;
+    }
+
+    public List<String> getRandomCards(int amount) {
+        if (this.cards == null) return null;
+        if (this.cards.size() < amount) return null;
+
+        List<String> randomCards = new ArrayList<>();
+        while (randomCards.size() < amount) {
+            String randomCardID;
+            do  {
+                randomCardID = this.cards.get(Constants.RANDOM.nextInt(0, this.cards.size())).getID();
+                if (!isCardInList(randomCardID, randomCards))  {
+                    randomCards.add(randomCardID);
+                }
+            } while (!isCardInList(randomCardID, randomCards));
+        }
+        return randomCards;
     }
 
     public boolean isCardInList(String cardID, List<String> cards) {

@@ -30,22 +30,12 @@ public class BattleController extends Controller {
         battleQueue.add(player);
         System.out.println(battleQueue.size());
         if (battleQueue.size() > 1) {
-            return new Response(HttpStatus.OK, ContentType.JSON, startBattle(lastOutcomes.size()-1));
+            return new Response(HttpStatus.OK, ContentType.JSON, startBattle(lastOutcomes.size()-1) + "\n");
         } else {
-            return new Response(HttpStatus.OK, ContentType.JSON, "Queued up for battle.");
-//            lastOutcomes.add("-");
-//            return runQueue(player, lastOutcomes.size()-1);
+            return new Response(HttpStatus.OK, ContentType.JSON, "Queued up for battle. ");
         }
     }
 
-
-
-    private Response runQueue(Player player, int index) {
-        while (lastOutcomes.get(index).equals("-")) {
-            // run forever
-        }
-        return new Response(HttpStatus.OK, ContentType.JSON, lastOutcomes.get(index));
-    }
 
     private String startBattle(int index) {
         List<Player> players = new ArrayList<>();

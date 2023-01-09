@@ -14,7 +14,7 @@ import java.time.Instant;
 public class UserRepo {
 
     public int create(User user) {
-        user.setUserID(Constants.RANDOM.nextInt(10000000, 99999999));
+        if (user.getUserID() != -1) user.setUserID(Constants.RANDOM.nextInt(10000000, 99999999));
         if (playerExists(user)) {
             return 0;
         }
@@ -54,7 +54,6 @@ public class UserRepo {
                 UPDATE players SET name = ?, bio = ?, image = ?, credits = ?, games_counter = ?, win_counter = ?, elo = ? WHERE user_id=?;
                 UPDATE score SET elo = ?, name = ? WHERE user_id = ?;
                 """;
-        System.out.println(user.getID());
         try {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
             statement.setString(1, user.getName());
@@ -78,11 +77,11 @@ public class UserRepo {
     }
 
     public Player getPlayer(User user) {
+        if (user.getID() == -1) user.setUserID(-1);
         if (user.getUserID() == 0) {
             user.setUserID(getIdForToken(user.getToken()));
             if (user.getUserID() == 0) { return null; }
         }
-
 
         String sql = """
                 SELECT * FROM players WHERE user_id=?
@@ -113,17 +112,18 @@ public class UserRepo {
     }
 
     public User getUser(User user) {
-        if (user.getUserID() == 0) {
-            user.setUserID(getIdForToken(user.getUsername(), user.getToken()));
+        if (user.getToken() == null) {
+            return null;
         }
-        if (user.getUserID() == 0) { return null; }
-
+        // SELECT * FROM players WHERE user_id=?
         String sql = """
-                SELECT * FROM players WHERE user_id=?
+                SELECT p.user_id, p.name, p.bio, p.image, p.credits, p.deck, p.stack, p.games_counter, p.win_counter, p.elo, u.username 
+                FROM players p JOIN users u ON p.user_id = u.user_id 
+                WHERE u.last_token = ?;
                 """;
         try {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
-            statement.setInt(1, user.getUserID());
+            statement.setString(1, user.getToken());
             ResultSet results = statement.executeQuery();
             while (results.next()) {
                 user.setAll(
@@ -138,17 +138,9 @@ public class UserRepo {
                         results.getInt(9),
                         results.getInt(10)
                 );
+                user.setUsername(results.getString(11));
+            }
 
-            }
-            sql = """
-                SELECT username FROM users WHERE user_id=?
-                """;
-            statement = DataBase.getConnection().prepareStatement(sql);
-            statement.setInt(1, user.getUserID());
-            results = statement.executeQuery();
-            while (results.next()) {
-                user.setUsername(results.getString(1));
-            }
             return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -172,22 +164,22 @@ public class UserRepo {
         return false;
     }
 
-    public boolean playerExists(String token) {
-        String sql = """ 
-                SELECT count(*) FROM users WHERE last_token=?;
-                """;
-        try {
-            PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
-            statement.setString(1, token);
-            ResultSet results = statement.executeQuery();
-            while (results.next()) {
-                return (results.getInt(1) > 0);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
-    }
+//    public boolean playerExists(String token) {
+//        String sql = """
+//                SELECT count(*) FROM users WHERE last_token=?;
+//                """;
+//        try {
+//            PreparedStatement statement = DataBase.getConnection().prepareStatement(sql);
+//            statement.setString(1, token);
+//            ResultSet results = statement.executeQuery();
+//            while (results.next()) {
+//                return (results.getInt(1) > 0);
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return false;
+//    }
 
     public int getIdForToken(String username, String token) {
         int id = 0;

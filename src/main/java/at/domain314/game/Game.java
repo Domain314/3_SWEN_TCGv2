@@ -38,10 +38,11 @@ public class Game {
     public String makeRound() {
         int loser = checkLoser();
         if (loser != -1) {
-            System.out.println(String.format("Winner: %s - Rounds: %d", players.get(loser+1%2).getName(), round ));
+            System.out.println(loser+1%2);
+            System.out.println(String.format("Winner: %s - Rounds: %d", players.get((loser+1)%2).getName(), round ));
             isActive = false;
             finalizeGame(loser);
-            return String.format("Winner: %s - Rounds: %d", players.get(loser+1%2).getName(), round );
+            return String.format("Winner: %s - Rounds: %d", players.get((loser+1)%2).getName(), round );
         }
         if (!addRound()) {
             System.out.println("Limit of rounds reached! \nDraw.");
@@ -128,9 +129,8 @@ public class Game {
 
 //    Check if one of the player has no cards left. return index of loser or -1 if everyone has at least one card left.
     private int checkLoser() {
-        System.out.println(players);
         for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).getDeck().getCards().size() <= 0) {
+            if (players.get(i).getDeck().getCards().size() == 0) {
                 return i;
             }
         }
@@ -155,11 +155,11 @@ public class Game {
             }
             case 0: {
                 players.get(0).endGame(eloChange*-1, players.get(1).getDeck());
-                players.get(1).endGame(eloChange, players.get(0).getDeck(), true);
+                players.get(1).endGame(eloChange, true);
                 break;
             }
             case 1: {
-                players.get(0).endGame(eloChange, players.get(1).getDeck(), true);
+                players.get(0).endGame(eloChange, true);
                 players.get(1).endGame(eloChange*-1, players.get(0).getDeck());
                 break;
             }

@@ -39,6 +39,13 @@ public class Response {
         this.status = HttpStatus.BAD_REQUEST.code;
         this.message = HttpStatus.BAD_REQUEST.message;
         this.contentType = ContentType.JSON.type;
+        this.content = Constants.RESPONSE_BAD_ERROR;
+    }
+
+    public Response(boolean isBadRequest) {
+        this.status = HttpStatus.BAD_REQUEST.code;
+        this.message = HttpStatus.BAD_REQUEST.message;
+        this.contentType = ContentType.JSON.type;
         this.content = Constants.RESPONSE_BAD_REQUEST;
     }
 

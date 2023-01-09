@@ -7,14 +7,11 @@ import at.domain314.backend.httpserver.server.Server;
 import at.domain314.backend.httpserver.utils.Router;
 import at.domain314.backend.services.*;
 
-import static at.domain314.backend.init.InitDatabase.createDatabase;
 import static at.domain314.backend.init.InitDatabase.createTables;
 
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-
-//        createDatabase();
         createTables();
 
         Server server = new Server(10002, configureRouter());
@@ -23,7 +20,6 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println();
     }
 
     private static Router configureRouter() {

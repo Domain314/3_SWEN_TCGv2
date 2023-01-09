@@ -34,11 +34,12 @@ public class BattleService implements Service {
         switch (request.getMethod()) {
             case POST: {
                 if (preparePlayer(player)) return this.battleController.queueForBattle(player);
+                else return new Response(Constants.RESPONSE_BAD_CARDS_DECK);
             }
             case GET: {
                 return new Response(getStats(player), true);
             }
-            default: return new Response();
+            default: return new Response(true);
         }
     }
 

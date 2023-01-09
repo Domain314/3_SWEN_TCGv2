@@ -33,7 +33,7 @@ public class PackageService implements Service {
                 if (player.getCredits() >= 5) return this.packageController.acquirePackage(request, player);
                 else return new Response(Constants.RESPONSE_BAD_CREDITS);
             }
-            default: return new Response();
+            default: return new Response(true);
         }
     }
 

@@ -10,6 +10,7 @@ import at.domain314.backend.repositories.PackageRepo;
 import at.domain314.models.cards.Card;
 import at.domain314.models.cards.CardPackage;
 import at.domain314.models.users.Player;
+import at.domain314.utils.Constants;
 
 import java.util.List;
 
@@ -31,36 +32,36 @@ public class PackageController extends Controller {
             List<String> cardIDs = this.cardRepo.createCards(this.packageRepo.createPackage(cards));
 
             switch(this.packageRepo.uploadPackage(cardIDs)) {
-                case 0:
-                    System.out.println("Error creating Package!");
-                    return new Response(HttpStatus.CREATED, ContentType.JSON, "Error creating Package!\n");
                 case 1:
-                    System.out.println("Package created!");
-                    return new Response(HttpStatus.CREATED, ContentType.JSON, "Package created!\n");
+                    Constants.print("Package created!");
+                    return new Response("Package created!\n", true);
+                default:
+                    Constants.print(Constants.RESPONSE_BAD_PACKAGE);
+                    return new Response(Constants.RESPONSE_BAD_PACKAGE);
             }
-
-            return new Response(HttpStatus.OK, ContentType.JSON, "Okokokokok!");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Constants.print(Constants.RESPONSE_BAD_PACKAGE);
+            return new Response(Constants.RESPONSE_BAD_PACKAGE);
         }
     }
 
     public Response acquirePackage(Request request, Player player) {
         try {
             CardPackage cardPackage = this.packageRepo.getOneAvailablePackage();
+            System.out.println(cardPackage);
+            if (cardPackage == null) return new Response(Constants.RESPONSE_BAD_ACQUIRE);
 
             switch(this.packageRepo.transferPackage(cardPackage, player)) {
-                case 0:
-                    System.out.println("Error acquiring Package!");
-                    return new Response(HttpStatus.NO_CONTENT, ContentType.JSON, "Error acquiring Package!\n");
                 case 1:
-                    System.out.println("Package acquired!");
-                    return new Response(HttpStatus.CREATED, ContentType.JSON, "Package acquired!\n");
+                    Constants.print("Package acquired!");
+                    return new Response("Package acquired!\n", true);
+                default:
+                    Constants.print(Constants.RESPONSE_BAD_ACQUIRE);
+                    return new Response(Constants.RESPONSE_BAD_ACQUIRE);
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Constants.print(Constants.RESPONSE_BAD_ACQUIRE);
+            return new Response(Constants.RESPONSE_BAD_ACQUIRE);
         }
-        return new Response(HttpStatus.BAD_REQUEST, ContentType.JSON, "Error acquiring Package!\n");
     }
-
 }

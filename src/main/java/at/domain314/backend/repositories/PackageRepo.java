@@ -25,7 +25,7 @@ public class PackageRepo {
         if (cards == null) {
             cardsList = generatePackage();
         } else {
-            cardsList = new ArrayList<Card>();
+            cardsList = new ArrayList<>();
             for (Card card : cards) {
                 if (card.getName().contains("Water")) { card.setElement(Element.WATER); }
                 else if (card.getName().contains("Fire")) { card.setElement(Element.FIRE); }
@@ -77,7 +77,7 @@ public class PackageRepo {
     }
 
     public int transferPackage(CardPackage cardPackage, Player player) {
-        if (cardPackage.getCardIDs().size() != 5) { return 0; }
+        if (cardPackage.getCardIDs().size() != Constants.CARDS_PER_PACKAGE) { return 0; }
 
         String sql = """
                 DELETE FROM packages WHERE package_id = ?; 

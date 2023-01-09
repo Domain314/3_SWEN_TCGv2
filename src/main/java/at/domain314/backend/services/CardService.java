@@ -29,7 +29,7 @@ public class CardService implements Service {
             case GET: {
                 return this.cardController.getCards(player.getStackIDs());
             }
-            default: return new Response();
+            default: return new Response(true);
         }
     }
 }

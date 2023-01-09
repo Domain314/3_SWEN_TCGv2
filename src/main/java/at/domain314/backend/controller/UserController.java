@@ -3,8 +3,6 @@ package at.domain314.backend.controller;
 import at.domain314.models.users.Player;
 import at.domain314.utils.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import at.domain314.backend.httpserver.http.ContentType;
-import at.domain314.backend.httpserver.http.HttpStatus;
 import at.domain314.backend.httpserver.server.Controller;
 import at.domain314.backend.httpserver.server.Request;
 import at.domain314.backend.httpserver.server.Response;
@@ -25,13 +23,16 @@ public class UserController extends Controller {
 
             switch (this.userRepo.create(user)) {
                 case 0: {
-                    return new Response("User already exists!");
+                    Constants.print("User already exists!\n");
+                    return new Response("User already exists!\n");
                 }
                 case 1:{
-                    return new Response("New User created:\n" + userDataJSON, true);
+                    Constants.print("New User created:\n" + userDataJSON + "\n");
+                    return new Response("New User created:\n" + userDataJSON + "\n", true);
                 }
                 default: {
-                    return new Response();
+                    Constants.print(Constants.RESPONSE_BAD_ERROR);
+                    return new Response(Constants.RESPONSE_BAD_ERROR);
                 }
             }
         } catch (Exception e) {
@@ -41,11 +42,11 @@ public class UserController extends Controller {
 
     public Response getUser(Request request) {
         try {
-            Player player = authPlayer(request);
-            if (player == null) { return new Response(Constants.RESPONSE_BAD_AUTH); }
-            if (player.getName().equals(request.getPathParts().get(1))) {
-                String playerDataJSON = this.getObjectMapper().writeValueAsString(player);
-                return new Response("Token accepted:\n" + playerDataJSON, true);
+            User user = authUser(request);
+            if (user == null) { return new Response(Constants.RESPONSE_BAD_AUTH); }
+            if (user.getUsername().equals(request.getPathParts().get(1))) {
+                String playerDataJSON = this.getObjectMapper().writeValueAsString((Player)user);
+                return new Response("Token accepted.\nPlayer Data:\n" + playerDataJSON + "\n", true);
             }
             return new Response(Constants.RESPONSE_BAD_AUTH);
         } catch (Exception e) {
@@ -56,7 +57,6 @@ public class UserController extends Controller {
     private User authUser(Request request) {
         User user = new User();
         user.setToken(request.getHeaderMap().getHeader("Authorization"));
-        user.setUserID(userRepo.getIdForToken(user.getToken()));
         return this.userRepo.getUser(user);
     }
 
@@ -67,17 +67,10 @@ public class UserController extends Controller {
         return this.userRepo.getPlayer(user);
     }
 
-    public boolean authBoolean(Request request) {
-        String token = request.getHeaderMap().getHeader("Authorization");
-        return userRepo.playerExists(token);
-    }
-
     public Response updatePlayer(Request request) {
         try {
             User user = authUser(request);
             Player newData = this.getObjectMapper().readValue(request.getBody(), Player.class);
-            System.out.println(user.getUsername());
-            System.out.println(request.getPathParts().get(1));
             if (!user.getUsername().equals(request.getPathParts().get(1))) {
                 return new Response(Constants.RESPONSE_BAD_USER);
             }
@@ -104,7 +97,4 @@ public class UserController extends Controller {
         if (player.getWinCounter() != 0) { user.setWinCounter(player.getWinCounter()); }
     }
 
-    public int getIdForToken(String token) {
-        return userRepo.getIdForToken(token);
-    }
 }
