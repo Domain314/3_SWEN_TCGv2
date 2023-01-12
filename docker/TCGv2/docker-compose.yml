@@ -11,7 +11,7 @@ services:
     ports:
       - 5432
   java:
-    image: "tcgv2"
+    image: "domain314/tcgv2"
     ports:
       - "10002:10002"
     depends_on:
