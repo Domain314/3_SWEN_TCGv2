@@ -23,7 +23,6 @@ public class SessionRepo {
             statement.setString(2, user.getUsername());
             statement.execute();
         } catch (SQLException e) {
-            System.out.println("Error");
             return 0;
         }
         return 2;

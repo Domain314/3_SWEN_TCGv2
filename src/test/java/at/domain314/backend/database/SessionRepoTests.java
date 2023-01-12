@@ -5,10 +5,7 @@ import at.domain314.backend.repositories.UserRepo;
 import at.domain314.models.users.User;
 import at.domain314.testUtils.Creator;
 import at.domain314.testUtils.Logger;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 

@@ -26,14 +26,12 @@ public class PackageService implements Service {
         if (player == null) return new Response(Constants.RESPONSE_BAD_AUTH);
 
         switch (request.getPathParts().get(0)) {
-            case "packages": {
-                return this.packageController.createPackage(request);
-            }
-            case "transactions": {
+            case "packages" -> { return this.packageController.createPackage(request); }
+            case "transactions" -> {
                 if (player.getCredits() >= 5) return this.packageController.acquirePackage(request, player);
                 else return new Response(Constants.RESPONSE_BAD_CREDITS);
             }
-            default: return new Response(true);
+            default -> {  return new Response(true); }
         }
     }
 

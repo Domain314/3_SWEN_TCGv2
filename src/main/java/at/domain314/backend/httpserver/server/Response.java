@@ -21,18 +21,18 @@ public class Response {
         this.content = content;
     }
 
-    public Response(String content, boolean isOk) {
+    public Response(String okContent, boolean isOk) {
         this.status = HttpStatus.OK.code;
         this.message = HttpStatus.OK.message;
         this.contentType = ContentType.JSON.type;
-        this.content = content;
+        this.content = okContent;
     }
 
-    public Response(String content) {
+    public Response(String badRequestContent) {
         this.status = HttpStatus.BAD_REQUEST.code;
         this.message = HttpStatus.BAD_REQUEST.message;
         this.contentType = ContentType.JSON.type;
-        this.content = content;
+        this.content = badRequestContent;
     }
 
     public Response() {
@@ -48,6 +48,8 @@ public class Response {
         this.contentType = ContentType.JSON.type;
         this.content = Constants.RESPONSE_BAD_REQUEST;
     }
+
+    public String getContent() { return this.content; }
 
     public String get() {
 

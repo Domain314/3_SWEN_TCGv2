@@ -1,8 +1,6 @@
 package at.domain314.models.users;
 
-import at.domain314.utils.Constants;
-
-public class User extends Player implements Comparable<User> {
+public class User extends Player {
     int userID;
     String username;
     String password;
@@ -17,12 +15,6 @@ public class User extends Player implements Comparable<User> {
         this.password = password;
     }
 
-//    public User(int id, int gamesCounter, int winCounter, int elo, String userName, String sessionToken) {
-//        super(id, gamesCounter, winCounter, elo);
-//        this.username = userName;
-//        this.sessionToken = sessionToken;
-//    }
-
     public int getUserID() { return userID; }
     public String getUsername() { return username; }
     public String getPassword() { return password; }
@@ -35,9 +27,5 @@ public class User extends Player implements Comparable<User> {
     public void setToken(String token) { this.last_token = token; }
 
 
-    @Override
-    public int compareTo(User user) {
-        return user.getElo() - this.getElo();
-    }
 
 }

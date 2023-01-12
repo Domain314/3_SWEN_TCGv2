@@ -9,6 +9,7 @@ import java.util.List;
 
 public class BattleRepo {
 
+//    Update both players stats and elo
     public void updateAfterBattle(List<Player> players) {
 
         String sql = """

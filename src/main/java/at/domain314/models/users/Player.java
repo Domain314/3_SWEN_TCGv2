@@ -9,7 +9,7 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Comparable<Player>{
     int id;
     String name;
     String bio;
@@ -21,7 +21,6 @@ public class Player {
     int winCounter;
     int elo;
     Deck deck;
-    Collection stack;
 
     public Player() {}
     public Player(int id, String name, String bio, String image, int credits, Array deck, Array stack, int gamesCounter, int winCounter, int elo) {
@@ -35,6 +34,18 @@ public class Player {
         this.elo = elo;
         deckIDs = Constants.convertArrayToList(deck);
         stackIDs = Constants.convertArrayToList(stack);
+    }
+
+//    only for unit-testing..
+    public Player(int id, String name, Deck deck, List<String> deckIDs, List<String> stackIDs, int gamesCounter, int winCounter, int elo) {
+        this.id = id;
+        this.name = name;
+        this.gamesCounter = gamesCounter;
+        this.winCounter = winCounter;
+        this.elo = elo;
+        this.deck = deck;
+        this.deckIDs = deckIDs;
+        this.stackIDs = stackIDs;
     }
 
     public void setAll(int id, String name, String bio, String image, int credits, Array deck, Array stack, int gamesCounter, int winCounter, int elo) {
@@ -61,7 +72,6 @@ public class Player {
     public List<String> getDeckIDs() { return deckIDs; }
     public List<String> getStackIDs() { return stackIDs; }
     public Deck getDeck() { return deck; }
-    //  public Collection getStack() { return stack; }                    TO DELETE
 
     public void setID(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
@@ -74,17 +84,16 @@ public class Player {
     public void setDeckIDs(List<String> deckIDs) { this.deckIDs = deckIDs; }
     public void setStackIDs(List<String> stackIDs) { this.stackIDs = stackIDs; }
     public void setDeck(Deck deck) { this.deck = deck; }
-    //  public void setStack(Collection stack) { this.stack = stack; }    TO DELETE
 
     public void changeElo(int eloAmount) { elo += eloAmount; }
 
-//  End game after losing (change elo, increment games counter and prepareCardIDs)
+//    End game after losing (change elo, increment games counter and prepareCardIDs)
     public void endGame(int eloAmount, Deck enemyDeck) {
         changeElo(eloAmount);
         gamesCounter++;
         prepareCardIDs(enemyDeck);
     }
-//  End game after winning (change elo, increment games, win counter and prepareCardIDs)
+//    End game after winning (change elo, increment games, win counter and prepareCardIDs)
     public void endGame(int eloAmount, boolean win) {
         changeElo(eloAmount);
         gamesCounter++;
@@ -92,17 +101,14 @@ public class Player {
         prepareCardIDs();
     }
 
-//  Prepare deckIDs and stackIDs for db-update, after a battle.
-//  Player won
+//    Prepare deckIDs and stackIDs for db-update, after a battle.
+//    Player won
     public void prepareCardIDs() {
         List<String> newStack = new ArrayList<>(this.stackIDs);
-//        for (String cardID : this.stackIDs) {
-//            newStack.add(cardID);
-//        }
         finalizeCardIDs(newStack);
     }
 
-//  Player lost
+//    Player lost
     public void prepareCardIDs(Deck enemyDeck) {
         List<String> newStack = new ArrayList<>();
         for (String cardID : this.stackIDs) {
@@ -111,7 +117,8 @@ public class Player {
         }
         finalizeCardIDs(newStack);
     }
-//  Add new cards from the enemy, which where obtained in battle (win + draw)
+
+//    Add new cards from the enemy, which where obtained in battle (win + draw)
     private void finalizeCardIDs(List<String> newStack) {
         for (Card card : this.deck.getCards()) {
             if (this.deck.isCardInList(card.getID(), newStack)) { continue; }
@@ -119,5 +126,11 @@ public class Player {
         }
         this.stackIDs = newStack;
         this.deckIDs = new ArrayList<>();
+    }
+
+//    Compare Player based on their Elo-Rating
+    @Override
+    public int compareTo(Player player) {
+        return player.getElo() - this.getElo();
     }
 }

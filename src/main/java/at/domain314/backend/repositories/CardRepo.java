@@ -2,13 +2,10 @@ package at.domain314.backend.repositories;
 
 import at.domain314.backend.database.DataBase;
 import at.domain314.models.cards.Card;
-import at.domain314.models.users.Player;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 

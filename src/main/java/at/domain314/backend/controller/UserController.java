@@ -16,30 +16,23 @@ public class UserController extends Controller {
         this.userRepo = userRepo;
     }
 
+//    Tries to create a User, based on the request and returns the outcome.
     public Response createUser(Request request) {
         try {
             User user = this.getObjectMapper().readValue(request.getBody(), User.class);
             String userDataJSON = this.getObjectMapper().writeValueAsString(user);
 
             switch (this.userRepo.create(user)) {
-                case 0: {
-                    Constants.print("User already exists!\n");
-                    return new Response("User already exists!\n");
-                }
-                case 1:{
-                    Constants.print("New User created:\n" + userDataJSON + "\n");
-                    return new Response("New User created:\n" + userDataJSON + "\n", true);
-                }
-                default: {
-                    Constants.print(Constants.RESPONSE_BAD_ERROR);
-                    return new Response(Constants.RESPONSE_BAD_ERROR);
-                }
+                case 0: return new Response(Constants.RESPONSE_BAD_USER_EXISTS);
+                case 1: return new Response("New User created:\n" + userDataJSON + "\n", true);
+                default:  return new Response(Constants.RESPONSE_BAD_ERROR);
             }
         } catch (Exception e) {
             return new Response();
         }
     }
 
+//    Tries to get the User based on the request and returns the outcome
     public Response getUser(Request request) {
         try {
             User user = authUser(request);
@@ -54,12 +47,14 @@ public class UserController extends Controller {
         }
     }
 
+//    Will return a user object if the user is authenticated or null if not.
     private User authUser(Request request) {
         User user = new User();
         user.setToken(request.getHeaderMap().getHeader("Authorization"));
         return this.userRepo.getUser(user);
     }
 
+//    Will return a player object if the user is authenticated or null if not.
     public Player authPlayer(Request request) {
         User user = new User();
         user.setToken(request.getHeaderMap().getHeader("Authorization"));
@@ -67,6 +62,9 @@ public class UserController extends Controller {
         return this.userRepo.getPlayer(user);
     }
 
+//    Update a player by authenticating the user, deserializing the request body to a player object,
+//     merging in all changes from the request, updating the player with the new data, and
+//     returning a response indicating success or failure or an error message.
     public Response updatePlayer(Request request) {
         try {
             User user = authUser(request);
@@ -87,6 +85,7 @@ public class UserController extends Controller {
         }
     }
 
+//    Merge only the data from the request body (player), into the given User Object.
     private void mergePlayer(User user, Player player) {
         if (player.getName() != null) { user.setName(player.getName()); }
         if (player.getBio() != null) { user.setBio(player.getBio()); }

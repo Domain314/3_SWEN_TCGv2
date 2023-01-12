@@ -17,10 +17,8 @@ public class SessionService implements Service {
     public Response handleRequest(Request request) {
 
         switch (request.getMethod()) {
-            case POST: {
-                return this.sessionController.loginUser(request);
-            }
-            default: return new Response(true);
+            case POST -> { return this.sessionController.loginUser(request); }
+            default -> { return new Response(true); }
         }
     }
 }

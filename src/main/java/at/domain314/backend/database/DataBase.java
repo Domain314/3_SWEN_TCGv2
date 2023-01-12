@@ -8,12 +8,17 @@ public class DataBase extends AbstractDataBase {
 
     private static Connection _connection = null;
 
-    //get connection function (use of openConnection) returning Type Connection
+    // Get connection function (use of openConnection) returning Type Connection
+    // Docker env will use different url and password
     public static Connection getConnection() {
         if (_connection == null) {
             try {
-                //link zur Datenbank inkl port und datenbank name (egal in welchem img)
-                openConnection("jdbc:postgresql://localhost:5432/tcg", "postgres", "9193110456");
+                if (System.getenv("IS_DOCKER") != null) {
+                    openConnection("jdbc:postgresql://postgresql:5432/tcg", "postgres", "123456");
+                } else {
+                    openConnection("jdbc:postgresql://localhost:5432/tcg", "postgres", "abc1234");
+                }
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

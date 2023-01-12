@@ -15,10 +15,8 @@ public class ScoreService implements Service {
     public Response handleRequest(Request request) {
 
         switch (request.getMethod()) {
-            case GET: {
-                return this.scoreController.getScore();
-            }
-            default: return new Response(true);
+            case GET -> { return this.scoreController.getScore(); }
+            default -> { return new Response(true); }
         }
     }
 

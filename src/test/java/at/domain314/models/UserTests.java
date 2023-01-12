@@ -1,8 +1,6 @@
 package at.domain314.models;
 
-import at.domain314.models.users.Player;
 import at.domain314.models.users.User;
-import at.domain314.testUtils.Creator;
 import at.domain314.testUtils.Logger;
 import org.junit.jupiter.api.*;
 

@@ -75,7 +75,7 @@ public class CardGenerator {
         return Constants.RANDOM.nextInt(Constants.RANDOM_DAMAGE_FROM, Constants.RANDOM_DAMAGE_TO)*10;
     }
 
-    //    Create a card based on random stats
+//    Create a card based on random stats
     public static Card generateRandomCard() {
         String rndID = Constants.createCardID();
         Element rndElement = getRandomElement();
@@ -86,7 +86,7 @@ public class CardGenerator {
         return new Card(rndID, rndName, "descr", rndDamage, rndType, rndElement);
     }
 
-    //    Create a package of 5 Cards and return them.
+//    Create a package of 5 random Cards and return them.
     public static List<Card> generatePackage() {
         List<Card> pack = new ArrayList<>();
         for (int i = 0; i < Constants.CARDS_PER_PACKAGE; i++) {

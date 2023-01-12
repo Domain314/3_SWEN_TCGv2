@@ -32,7 +32,7 @@ public class Creator {
     public static final ArrayList<String> createCardIDs(int id, int amount) {
         ArrayList<String> testDeck = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            testDeck.add(String.format("CARD_ID_%d-%d", id, i));
+            testDeck.add(String.format("CARD_ID_%d-%d", id, id));
         }
         return testDeck;
     }
@@ -40,7 +40,7 @@ public class Creator {
     public static final ArrayList<Card> createCards(int id, int amount) {
         ArrayList<Card> testDeck = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            testDeck.add(createCard(String.format("%d%d", id, i)));
+            testDeck.add(createCard(String.format("%d", id)));
         }
         return testDeck;
     }
@@ -52,4 +52,8 @@ public class Creator {
     public static final Card createCard(String id) {
         return new Card(id, String.format("CARD_%s", id), "DESCR", Integer.parseInt(id), "KNIGHT", "NORMAL");
     }
+
+//    public static final Deck createDeck(int id, int amount, boolean ) {
+//        return new Deck(createCards(id, amount));
+//    }
 }

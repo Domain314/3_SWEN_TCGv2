@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ScoreRepo {
+
+//    Get Scoreboard, ordered by elo
     public String getScore() {
         String result = "";
         String sql = """

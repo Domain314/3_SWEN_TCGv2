@@ -32,17 +32,16 @@ public class BattleService implements Service {
         if (player == null) { return new Response(Constants.RESPONSE_BAD_AUTH); }
 
         switch (request.getMethod()) {
-            case POST: {
+            case POST -> {
                 if (preparePlayer(player)) return this.battleController.queueForBattle(player);
                 else return new Response(Constants.RESPONSE_BAD_CARDS_DECK);
             }
-            case GET: {
-                return new Response(getStats(player), true);
-            }
-            default: return new Response(true);
+            case GET -> { return new Response(getStats(player), true); }
+            default -> { return new Response(true); }
         }
     }
 
+//    Set Deck, by converting DeckIDs into Card Objects
     private boolean preparePlayer(Player player) {
         try {
             player.setDeck(new Deck(cardController.getAllCards(player.getDeckIDs())));
@@ -52,6 +51,8 @@ public class BattleService implements Service {
         }
     }
 
+//    Get a player's statistics by calculating the player's win ratio, and returning the player's statistics in
+//     the format of " (W)in | (L)ose/(D)raw | Total | W-Ratio | Elo | Credits "
     private String getStats(Player player) {
         String winRatio = "0";
         if (player.getWinCounter() != 0) {

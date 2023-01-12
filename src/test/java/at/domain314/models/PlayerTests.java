@@ -5,8 +5,7 @@ import at.domain314.models.users.Player;
 import at.domain314.testUtils.Creator;
 import at.domain314.testUtils.Logger;
 import at.domain314.utils.Constants;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 

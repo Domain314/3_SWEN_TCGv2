@@ -1,7 +1,5 @@
 package at.domain314.backend.controller;
 
-import at.domain314.backend.httpserver.http.ContentType;
-import at.domain314.backend.httpserver.http.HttpStatus;
 import at.domain314.backend.httpserver.server.Controller;
 import at.domain314.backend.httpserver.server.Request;
 import at.domain314.backend.httpserver.server.Response;
@@ -23,6 +21,8 @@ public class PackageController extends Controller {
         this.cardRepo = cardRepo;
     }
 
+//    Deserialize a request body, creating cards and a package, uploading the package,
+//     and returning a response indicating success or failure.
     public Response createPackage(Request request) {
         try {
             Card[] cards = null;
@@ -33,18 +33,17 @@ public class PackageController extends Controller {
 
             switch(this.packageRepo.uploadPackage(cardIDs)) {
                 case 1:
-                    Constants.print("Package created!");
                     return new Response("Package created!\n", true);
                 default:
-                    Constants.print(Constants.RESPONSE_BAD_PACKAGE);
                     return new Response(Constants.RESPONSE_BAD_PACKAGE);
             }
         } catch (Exception e) {
-            Constants.print(Constants.RESPONSE_BAD_PACKAGE);
             return new Response(Constants.RESPONSE_BAD_PACKAGE);
         }
     }
 
+//    Acquire a package by getting one available package, transferring it to a player, and
+//     returning a response indicating success or failure.
     public Response acquirePackage(Request request, Player player) {
         try {
             CardPackage cardPackage = this.packageRepo.getOneAvailablePackage();
@@ -53,10 +52,8 @@ public class PackageController extends Controller {
 
             switch(this.packageRepo.transferPackage(cardPackage, player)) {
                 case 1:
-                    Constants.print("Package acquired!");
-                    return new Response("Package acquired!\n", true);
+                    return new Response(Constants.RESPONSE_OK_PACKAGE, true);
                 default:
-                    Constants.print(Constants.RESPONSE_BAD_ACQUIRE);
                     return new Response(Constants.RESPONSE_BAD_ACQUIRE);
             }
         } catch (Exception e) {

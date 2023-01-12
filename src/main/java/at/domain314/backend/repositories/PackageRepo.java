@@ -20,6 +20,7 @@ import static at.domain314.game.CardGenerator.generatePackage;
 
 public class PackageRepo {
 
+//    If cards == null, random Cards will be generated. Else the cards given in the body.
     public List<Card> createPackage(Card[] cards) {
         List<Card> cardsList;
         if (cards == null) {
@@ -60,6 +61,7 @@ public class PackageRepo {
         return 1;
     }
 
+//    Check and Get the oldest Package made. Return null if no package found
     public CardPackage getOneAvailablePackage() {
         String sql = """
                 SELECT * FROM packages WHERE created_on = (SELECT MIN(created_on) FROM packages) LIMIT 1;
@@ -76,6 +78,7 @@ public class PackageRepo {
         return null;
     }
 
+//    transfer package from its table and add the cards from the package to players stack
     public int transferPackage(CardPackage cardPackage, Player player) {
         if (cardPackage.getCardIDs().size() != Constants.CARDS_PER_PACKAGE) { return 0; }
 

@@ -26,10 +26,8 @@ public class CardService implements Service {
         if (player == null) { return new Response(Constants.RESPONSE_BAD_AUTH); }
 
         switch (request.getMethod()) {
-            case GET: {
-                return this.cardController.getCards(player.getStackIDs());
-            }
-            default: return new Response(true);
+            case GET -> { return this.cardController.getCards(player.getStackIDs()); }
+            default -> { return new Response(true); }
         }
     }
 }

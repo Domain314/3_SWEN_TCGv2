@@ -9,9 +9,10 @@ import at.domain314.backend.services.*;
 
 import static at.domain314.backend.init.InitDatabase.createTables;
 
-
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
+
+        // create Tables, if not done before.
         createTables();
 
         Server server = new Server(10002, configureRouter());

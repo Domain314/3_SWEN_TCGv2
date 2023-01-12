@@ -13,6 +13,7 @@ import java.time.Instant;
 
 public class UserRepo {
 
+//    Add user to user, player and score table. Reset password in the user Object, afterwards.
     public int create(User user) {
         if (user.getUserID() != -1) user.setUserID(Constants.RANDOM.nextInt(10000000, 99999999));
         if (playerExists(user)) {
@@ -48,6 +49,7 @@ public class UserRepo {
         return 1;
     }
 
+//    Update player's personal stats and in the scoreboard
     public Player update(User user) {
         user.setUserID(getIdForToken(user.getUsername(), user.getToken()));
         String sql = """
@@ -76,6 +78,7 @@ public class UserRepo {
         return getPlayer(user);
     }
 
+//    Get only the player-part of a user.
     public Player getPlayer(User user) {
         if (user.getID() == -1) user.setUserID(-1);
         if (user.getUserID() == 0) {
@@ -111,6 +114,7 @@ public class UserRepo {
         return null;
     }
 
+//    Get the complete user data (user + player)
     public User getUser(User user) {
         if (user.getToken() == null) {
             return null;

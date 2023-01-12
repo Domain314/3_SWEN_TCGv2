@@ -6,12 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="2e245155-bbd0-41bb-a730-a8d6491d9723" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/TCGv2_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/TCGv2/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/TCGv2/TCGv2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/TCGv2/docker-compose.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/Main.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/BattleController.java" afterDir="false" />
@@ -59,14 +63,15 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/models/cards/Element.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/models/cards/IPlayable.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/models/cards/Type.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/models/overseer/Overseer.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/models/users/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/models/users/Social.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/models/users/User.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/utils/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/backend/database/SessionRepoTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/backend/database/UserRepoTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/backend/init/InitDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/game/GameTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/CardTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/DeckTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/PlayerTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/UserTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/testUtils/Creator.java" afterDir="false" />
@@ -107,16 +112,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "/home/domain314/IdeaProjects/TCGv2/src/test/java/at/domain314",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/domain314/IdeaProjects/TCGv2/src/test/java/at/domain314&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.ignored.files&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/java/at/domain314" />
@@ -126,7 +134,7 @@
       <recent name="at.domain314.backend.init" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in TCGv2">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="at.domain314.Main" />
       <module name="TCGv2" />
@@ -143,6 +151,20 @@
     <configuration name="All in TCGv2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TCGv2" />
       <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="at.domain314.game in TCGv2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TCGv2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.domain314.game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.domain314.game" />
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -175,13 +197,15 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.at.domain314.game in TCGv2" />
       <item itemvalue="JUnit.All in TCGv2" />
       <item itemvalue="Maven.TCGv2 [test]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in TCGv2" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in TCGv2" />
+        <item itemvalue="JUnit.at.domain314.game in TCGv2" />
       </list>
     </recent_temporary>
   </component>
@@ -203,29 +227,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/repositories/BattleRepo.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/httpserver/server/Server.java</url>
           <line>27</line>
           <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/controller/UserController.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/game/Game.java</url>
-          <line>147</line>
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/game/Game.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="93" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -12,7 +12,7 @@ abstract public class Collection {
 
     public List<Card> getCards() { return cards; }
 
-    //    Add one Card or List of Cards.
+//    Add one Card or List of Cards.
     public void addCard(Card card) {
         this.cards.add(card);
     }
@@ -22,6 +22,7 @@ abstract public class Collection {
         }
     }
 
+//    Make a List<String> of the best cards
     public List<String> getBestCards(int amount) {
         if (this.cards == null) return null;
         if (this.cards.size() < amount) return null;
@@ -44,6 +45,7 @@ abstract public class Collection {
         return bestCards;
     }
 
+//    Make a List<String> of random cards
     public List<String> getRandomCards(int amount) {
         if (this.cards == null) return null;
         if (this.cards.size() < amount) return null;
@@ -61,6 +63,7 @@ abstract public class Collection {
         return randomCards;
     }
 
+//    Check if card is in (enemy) List
     public boolean isCardInList(String cardID, List<String> cards) {
         for (String card : cards ) {
             if (card.equals(cardID)) return true;
@@ -68,18 +71,11 @@ abstract public class Collection {
         return false;
     }
 
+//    Check if card is in own List
     public boolean isCardInCollection(String cardID) {
         for (Card card : this.cards ) {
             if (card.getID().equals(cardID)) return true;
         }
         return false;
-    }
-
-    public void deleteCard(Card card) {
-        cards.remove(card);
-    }
-
-    public void swapCard() {
-        // to do
     }
 }

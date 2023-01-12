@@ -46,6 +46,7 @@ public class InitDatabase {
             );
             """;
 
+//    Creates Tables IF NOT EXISTS
     public static void createTables() {
         try {
             PreparedStatement statement = DataBase.getConnection().prepareStatement(initTablesSQL);

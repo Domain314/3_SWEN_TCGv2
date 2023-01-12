@@ -38,6 +38,7 @@ public class RequestHandler implements Runnable {
                 );
             } else {
                 response = this.router.resolve(request.getServiceRoute()).handleRequest(request);
+                System.out.println(response.getContent());
             }
             printWriter.write(response.get());
         } catch (Exception e) {

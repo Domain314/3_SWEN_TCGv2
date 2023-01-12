@@ -10,6 +10,7 @@ public class Deck extends Collection implements IPlayable{
 
     @Override
     public Card drawCard() {
+        if (cards.size() == 0) return null;
         int rnd = Constants.RANDOM.nextInt(this.getCards().size());
         return this.getCards().remove(rnd);
     }
