@@ -14,6 +14,11 @@ public class CardPackage {
         this.cardIDs = Constants.convertArrayToList(cardIDs);
     }
 
+    public CardPackage(int id, List<String> cardIDs) {
+        this.id = id;
+        this.cardIDs = cardIDs;
+    }
+
     public List<String> getCardIDs() { return this.cardIDs; }
     public int getID() { return this.id; }
 

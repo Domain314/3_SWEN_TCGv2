@@ -10,7 +10,7 @@ public class RequestBuilder {
     public Request buildRequest(BufferedReader bufferedReader) throws IOException {
         Request request = new Request();
         String line = bufferedReader.readLine();
-
+        System.out.println(line);
         if (line != null) {
             String[] splitFirstLine = line.split(" ");
 
@@ -18,9 +18,11 @@ public class RequestBuilder {
             request.setUrlContent(splitFirstLine[1]);
 
             line = bufferedReader.readLine();
+            System.out.println(line);
             while (!line.isEmpty()) {
                 request.getHeaderMap().ingest(line);
                 line = bufferedReader.readLine();
+                System.out.println(line);
             }
 
             if (request.getHeaderMap().getContentLength() > 0) {
@@ -30,7 +32,6 @@ public class RequestBuilder {
                 request.setBody(new String(charBuffer));
             }
         }
-
         return request;
     }
 

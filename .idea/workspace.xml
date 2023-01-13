@@ -13,6 +13,9 @@
       <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Protocol.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docker/TCGv2/Dockerfile" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docker/TCGv2/TCGv2.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/docker/TCGv2/docker-compose.yml" afterDir="false" />
@@ -67,11 +70,15 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/models/users/User.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/at/domain314/utils/Constants.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/backend/controller/BattleConTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/backend/controller/CardConTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/backend/controller/DeckConTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/backend/database/SessionRepoTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/backend/database/UserRepoTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/game/GameTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/CardTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/DeckTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/PackageTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/PlayerTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/models/UserTests.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/at/domain314/testUtils/Creator.java" afterDir="false" />
@@ -122,7 +129,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.ignored.files&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -134,7 +141,7 @@
       <recent name="at.domain314.backend.init" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.All in TCGv2">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="at.domain314.Main" />
       <module name="TCGv2" />
@@ -156,16 +163,50 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="at.domain314.game in TCGv2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CardConTests.getCards" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TCGv2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="at.domain314.game.*" />
+          <option name="PATTERN" value="at.domain314.backend.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="at.domain314.game" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="at.domain314.backend.controller" />
+      <option name="MAIN_CLASS_NAME" value="at.domain314.backend.controller.CardConTests" />
+      <option name="METHOD_NAME" value="getCards" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardConTests.getCardsPlain" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TCGv2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.domain314.backend.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.domain314.backend.controller" />
+      <option name="MAIN_CLASS_NAME" value="at.domain314.backend.controller.CardConTests" />
+      <option name="METHOD_NAME" value="getCardsPlain" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DeckConTests.updateDeckWR" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TCGv2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.domain314.backend.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.domain314.backend.controller" />
+      <option name="MAIN_CLASS_NAME" value="at.domain314.backend.controller.DeckConTests" />
+      <option name="METHOD_NAME" value="updateDeckWR" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -197,15 +238,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.at.domain314.game in TCGv2" />
+      <item itemvalue="JUnit.CardConTests.getCards" />
+      <item itemvalue="JUnit.CardConTests.getCardsPlain" />
+      <item itemvalue="JUnit.DeckConTests.updateDeckWR" />
       <item itemvalue="JUnit.All in TCGv2" />
       <item itemvalue="Maven.TCGv2 [test]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in TCGv2" />
-        <item itemvalue="JUnit.at.domain314.game in TCGv2" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.DeckConTests.updateDeckWR" />
+        <item itemvalue="JUnit.CardConTests.getCardsPlain" />
+        <item itemvalue="JUnit.CardConTests.getCards" />
       </list>
     </recent_temporary>
   </component>
@@ -231,6 +276,21 @@
           <line>27</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/httpserver/utils/RequestBuilder.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/httpserver/utils/RequestBuilder.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/at/domain314/backend/httpserver/utils/RequestBuilder.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -238,5 +298,6 @@
     <SUITE FILE_PATH="coverage/TCGv2$Main.ic" NAME="Main Coverage Results" MODIFIED="1673193797191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>at.domain314.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/TCGv2$All_in_TCGv2.ic" NAME="All in TCGv2 Coverage Results" MODIFIED="1673642385894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
