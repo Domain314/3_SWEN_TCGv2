@@ -8,7 +8,7 @@
 ### 1. Run application (3 ways to get it running)
     -  Run .jar in out/artifacts/TCGv2/TCGv2.jar
     -  start in IDE
-    -  `$ docker compose up`
+    -  $ docker compose up
 
 ### 2. Test Server
     - Use curl script (either "short testing script" or "original curl script") OR
